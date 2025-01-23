@@ -1,107 +1,30 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap");
-
-body {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 100vh;
+img {
+	--s: 10px;  /* control the size of the wave */
+	--w: 350px; /* preferred image width */
+	
+	width: round(var(--w),4*var(--s));
+	aspect-ratio: 1;
+	padding: calc(3.5*var(--s));
+	box-sizing: border-box;
+	background: linear-gradient(#9eed0d,#556270);
+	border-radius: calc(4*var(--s));
+	--_r:var(--s),#000;
+	--_g:conic-gradient(#000 0 0) no-repeat 50%/;
+	mask: 
+	  radial-gradient(var(--_r) 100%,#0000 calc(100% + 1px)) 
+	   0 0/calc(4*var(--s)) calc(4*var(--s)),
+	  var(--_g) calc(100% - 6*var(--s)) calc(100% - 6*var(--s)),
+	  var(--_g) calc(100% - 4*var(--s)) calc(100% - 4*var(--s)) subtract,
+	  radial-gradient(var(--_r) calc(100% - 1px),#0000) 
+	   var(--s) var(--s)/calc(2*var(--s)) calc(2*var(--s));
+  }
+  
+  
+  body {
 	margin: 0;
-	background: #000;
-	font-family: "Poppins", serif;
-	font-weight: 700;
-}
-
-.card {
-	position: relative;
-	width: 350px;
-	height: 566px;
-	perspective: 1000px;
-	overflow: hidden;
-	border-radius: 32px;
-	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-	background-color: #c4d9e9;
-}
-
-.parallax-layer {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-size: cover;
-	background-position: center;
-	transform-origin: center;
-}
-
-.parallax-layer img {
-	height: 115%;
-	margin-left: -90%;
-}
-
-.bg {
-	height: 100%;
-	max-height: 600px;
-}
-
-.parallax-layer:nth-child(1) {
-	z-index: 0;
-	filter: blur(5px);
-}
-.parallax-layer:nth-child(2) {
-	z-index: 1;
-	filter: blur(3px);
-}
-.parallax-layer:nth-child(3) {
-	z-index: 2;
-	filter: blur(2px);
-}
-.parallax-layer:nth-child(4) {
-	z-index: 3;
-	filter: blur(0px);
-}
-.parallax-layer:nth-child(5) {
-	z-index: 4;
-	filter: blur(2px);
-}
-.parallax-layer:nth-child(6) {
-	z-index: 5;
-	filter: blur(3px);
-}
-.parallax-layer:nth-child(7) {
-	z-index: 6;
-	filter: blur(5px);
-}
-
-.parallax-layer img {
-	margin-top: calc(-13% + var(--layer-offset, 0%));
-}
-
-.card-content {
-	position: absolute;
-	z-index: 10;
-	text-align: left;
-	color: white;
-	pointer-events: none;
-	bottom: 0;
-	padding: 32px;
-	font-size: 20px;
-	line-height: 0;
-}
-
-svg {
-	width: 1000px;
-	height: 115%;
-	margin-left: -90%;
-	margin-top: calc(-13% + var(--layer-offset, 0%));
-	box-shadow: inset 0px 0px 10px #000;
-	mix-blend-mode: multiply;
-}
-
-svg #patronus {
-	filter: url(#inset-shadow) url(#noise) contrast(2);
-}
-
-svg #effect {
-	filter: url(#smokeFilter) blur(2px) brightness(5);
-	mix-blend-mode: hard-light;
-}
+	min-height: 100vh;
+	display: grid;
+	place-content: center;
+	grid-auto-flow: column;
+	background: #F2E9E1;
+  }

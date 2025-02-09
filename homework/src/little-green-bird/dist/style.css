@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap');
+
+:root{
+  --hw: 76px;
+  --first: black;
+  --second:#44584e;
+  --third:#e6430d;
+  --fourth: #FC955B;
+  --b: red;
+  --w: teal;
+}
+
+html,body{
+  height:100vh;
+  margin:0;
+  font-family: "Space Grotesk", serif;
+}
+
+body{
+  display:grid;
+  place-items:center;
+}
+
+.bird-container{
+  --size:302px;
+  display:flex;
+  height:var(--size);
+  width:var(--size);
+  
+  .beak-container{
+  --beak-size:114px;
+  display: grid;
+  height: var(--beak-size);
+  width: calc(var(--beak-size)/1.5);
+  
+    .top-beak{
+    display:grid;
+    height: var(--hw);
+    width: var(--hw);
+    background:var(--third);
+    border-radius: var(--hw) 0 0 0;
+   }
+  
+    .bottom-beak{
+    display:grid;
+    height:calc(var(--hw)/2);
+    width:calc(var(--hw)/2);
+    background:var(--fourth);
+    justify-self:end;
+    border-radius:0 0 0 calc(var(--hw)/2);
+  }
+}
+  
+.bird-body{
+  --body-size: 227px;
+  display:grid;
+  place-items:center;
+  height: var(--body-size);
+  width: calc(var(--body-size)/1.5);
+  background:var(--first);
+  border-radius: 0 var(--hw) 0 var(--hw);
+  
+    .eye{
+    display:grid;
+    height: var(--hw);
+    width:var(--hw);
+    background:radial-gradient(var(--b) 40%,var(--w) 42%);
+    border-radius:var(--hw);
+  }
+  
+    .wing{
+    display:grid;
+    height:var(--hw);
+    width:calc(var(--body-size)/1.5);
+    background:var(--second);
+    translate: 75px 19px;
+    border-radius: 0 0 var(--hw) var(--hw);
+  }
+}
+  
+    .tail{
+    display:grid;
+    height:var(--hw);
+    width:var(--hw);
+    background: var(--first);
+    align-self:end;
+    border-radius: 0 0 var(--hw) 0;
+  }
+}
+
+.links{
+  display:flex;
+  justify-content:space-between;
+  gap:64px;
+/*   width:96%; */
+  translate: 0px -240px;
+  position:absolute;
+}
+
+a{
+  font-weight:900;
+  color:#444;
+  text-decoration:none;
+  transition: all 0.2s ease-in-out;
+  
+  &:hover{
+    scale:1.1;
+    rotate:-5deg;
+    color:var(--first);
+    transition: all 0.2s ease-in-out;
+  }
+}

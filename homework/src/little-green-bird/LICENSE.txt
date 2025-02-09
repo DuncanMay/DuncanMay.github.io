@@ -1,6 +1,6 @@
 The MIT License (MIT)
 
-Copyright (c) 2025 Thiyagaraj (https://codepen.io/thewizardjs/pen/WVEBLo)
+Copyright (c) 2025 BlurSoulx (https://codepen.io/BlurSoulx/pen/xbKNerb)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

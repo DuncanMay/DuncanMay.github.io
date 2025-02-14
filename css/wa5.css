@@ -16,8 +16,8 @@ body{
 }
 .redbox{
     display: inline-block;
-    width: 200px; 
-    height: 200px; 
+    width: 100px; 
+    height: 100px; 
     background-color: red;
     font-size: 80px; 
     color: #fff;
@@ -28,8 +28,8 @@ body{
 }
 .bluebox{
     display: inline-block;
-    width: 200px; 
-    height: 200px; 
+    width: 100px; 
+    height: 100px; 
     background-color: blue;
     font-size: 80px; 
     color: #fff;

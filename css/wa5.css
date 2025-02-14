@@ -19,7 +19,7 @@ body{
     width: 200px; 
     height: 200px; 
     background-color: red;
-    font-size: 180px; 
+    font-size: 80px; 
     color: #fff;
     padding: 50px 50px 30px 50px ;
     line-height: 180px;
@@ -31,7 +31,7 @@ body{
     width: 200px; 
     height: 200px; 
     background-color: blue;
-    font-size: 180px; 
+    font-size: 80px; 
     color: #fff;
     padding: 50px 50px 30px 50px ;
     line-height: 180px;

@@ -1,0 +1,12 @@
+body, html{
+  margin: 0; 
+  background: #111; 
+  display: grid; 
+  place-items: center;
+  height: 100%;
+}
+
+svg{
+  width: 100vmin; 
+  height: 100vmin;
+}

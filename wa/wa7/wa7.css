@@ -1,0 +1,103 @@
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(19, 18, 18);
+    margin: 0;
+    overflow: hidden;
+}
+
+
+h1 {
+    color: white;
+    font-family: fantasy;
+    font-size: 3rem;
+    margin-top: 20px;
+}
+
+
+nav {
+    width: 100vw;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgb(231, 24, 37);
+    transition: background-color 2s ease-in-out;
+    position: relative;
+}
+
+
+nav a {
+    text-align: center;
+    font-family: fantasy;
+    text-decoration: none;
+    color: rgb(35, 32, 32);
+    font-size: 1.5rem;
+    transition: color 0.5s ease-in-out;
+}
+
+
+img {
+    width: 30vw;
+    height: 80vh;
+    margin-top: 20px;
+}
+
+
+#flaming-skull {
+    width: 150px;
+    height: 150px;
+    background-image: url(../../img/flamingskull.png);
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 10vh;
+    left: 5vw;
+    animation: move-skull 5s infinite alternate ease-in-out;
+}
+
+
+@keyframes move-skull {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(50vw, 20vh); }
+    50% { transform: translate(75vw, 60vh); }
+    75% { transform: translate(30vw, 40vh); }
+    100% { transform: translate(90vw, 0); }
+}
+
+
+#jumpscare-skull {
+    width: 40vw;
+    height: 80vh;
+    background-image: url(../../img/flamingskull.png);
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0;
+    transition: transform 0.1s ease-in, opacity 0.1s ease-in;
+}
+
+
+nav:hover {
+    background-color: white;
+    transition: background-color 2s ease-in-out;
+}
+
+
+nav:hover #jumpscare-skull {
+    transform: translate(-50%, -50%) scale(1.5);
+    opacity: 1;
+}
+
+
+nav:hover #flaming-skull {
+    opacity: 0;
+    animation: none;
+}
+

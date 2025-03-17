@@ -1,0 +1,77 @@
+
+body{
+    background-color: #000;
+}
+.boundingbox{
+    display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: rgb(48, 55, 62);
+  padding: 10px;
+}
+
+.header{
+    text-align: center;
+  grid-column-start: 1;
+  grid-column-end: 4;
+    height:auto;
+    background-color:#000;
+    color:#fff;
+    background-image: center/contain no-repeat url("../../img/spaceheader.jpg");
+}
+.box{
+    display:inline-block;
+    min-width:300px;
+    max-width:100%;
+    height:auto;
+    min-height: 500px;
+    padding:30px;
+    background-color:#f1f1f1;
+    border:solid 1px #fff;
+    border-radius:5px;
+    text-align:left;
+    vertical-align:top;
+    margin:20px auto; 
+    font-size: 1em;
+
+}
+h1,h2,h3,{
+    font-family: "Tektur", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+}
+
+h1{
+    font-family: "Tektur", sans-serif;
+   font-size:3em; 
+   font-weight: <900>;
+
+}
+h2{
+    font-family: "Tektur", sans-serif;
+
+    font-size:1.5em; 
+    font-weight: 500;
+
+}
+h3{
+    font-family: "roboto", sans-serif;
+    font-size:1.2em;
+    font-weight: 400;
+}
+
+p{
+    font-family: "roboto", sans-serif;
+    font-size:1em;
+    font-weight: 400;
+}
+.tektur-<uniquifier> {
+    font-family: "Tektur", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: <weight>;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+  }
+

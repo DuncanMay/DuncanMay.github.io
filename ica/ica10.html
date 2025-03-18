@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            background-color: rgb(233, 111, 111);
+            border: 5px solid rgb(0, 128, 255);
+            height: 200px;
+            width: 200px;
+            margin-top: 20px;
+        }
+        .star {
+            width: 0;
+            height: 0;
+            border-left: 550px solid transparent;
+            border-right: 550px solid transparent;
+            border-bottom: 50px solid #e60c0c;
+        }
+        .random-display {
+            display: inline-block;
+            margin-top: 100px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="name">Hello!</h1>
+    <button>Enter Name</button>
+    <div class="box"></div>
+    <div class="star"></div>
+
+    
+    <button id="randomButton">Enter Number</button>
+    <span id="randomNumber" class="random-display"></span>
+
+    <script>
+        let box = document.querySelector('.box');
+        box.addEventListener('click', changeColor);
+        function changeColor() {
+            box.style.backgroundColor = "pink";
+            box.style.border = "20px dotted black";
+        }
+
+        let star = document.querySelector('.star');
+        star.addEventListener('mouseenter', move);
+        function move() {
+            star.style.marginBottom = "400px";
+            star.style.border = "5px solid blue";
+        }
+
+        console.log('hello world');
+        // alert('this is an alert');
+        let nameBtn = document.querySelector('button');
+        nameBtn.addEventListener('click', updateName);
+        function updateName() {
+            let name = document.querySelector('.name');
+            const input = prompt('Enter a new name!');
+            name.textContent = input; 
+        }
+
+        
+        document.getElementById('randomButton').addEventListener('click', function() {
+            const userNumber = prompt('Enter a number:');
+            const randomNumber = Math.floor(Math.random() * (parseInt(userNumber) + 1)); 
+            document.getElementById('randomNumber').textContent = "poop: " + randomNumber;
+        });
+    </script>
+</body>
+</html>

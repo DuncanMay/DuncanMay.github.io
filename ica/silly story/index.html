@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Silly Story Generator</title>
+
+    <style>
+      body {
+        font-family: 'Luckiest Guy', cursive;
+        width: 400px;
+        background-image: url(../../img/peter.png);
+      }
+
+      label {
+        font-weight: bold;
+      }
+
+      div {
+        padding-bottom: 10px;
+      }
+
+      input[type="text"] {
+        padding: 15px;
+        width: 200px;
+      }
+
+      p {
+        background: #c3e939;
+        color: #5e2612;
+        padding: 20px;
+        visibility: hidden;
+        font-size: 18px;
+        border: 2px solid #5e2612;
+        border-radius: 10px;
+        width: 100%;
+        text-align: center;
+      }
+      
+      .shake {
+        animation: shake 0.5s ease-in-out;
+      }
+      
+      @keyframes shake {
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-5px); }
+        50% { transform: translateX(5px); }
+        75% { transform: translateX(-5px); }
+        100% { transform: translateX(0); }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <label for="customname">Enter custom name:</label>
+      <input id="customname" type="text" placeholder="" />
+    </div>
+    <div>
+      <label for="us">US</label>
+      <input id="us" type="radio" name="ukus" value="us" checked />
+      <label for="uk">UK</label>
+      <input id="uk" type="radio" name="ukus" value="uk" />
+    </div>
+    <div>
+      <button class="randomize">Generate random story</button>
+    </div>
+    <p class="story"></p>
+    <script>
+      document.querySelector('.randomize').addEventListener('click', function() {
+        const storyElement = document.querySelector('.story');
+        storyElement.classList.remove('shake');
+        void storyElement.offsetWidth; // Trigger reflow to restart animation
+        storyElement.classList.add('shake');
+      });
+    </script>
+    <script src="main.js"></script>
+  </body>
+</html>

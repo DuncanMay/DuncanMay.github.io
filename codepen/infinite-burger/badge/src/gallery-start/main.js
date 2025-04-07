@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const imageFilenames = ['dsc_0066-edit.jpg', 'dsc_0032.jpg', 'dsc_0046.jpg', 'dsc_0059.jpg', 'dsc_0065-edit.jpg'];
+    const imageFilenames = ['DSC_0032.JPG', 'DSC_0046.JPG', 'DSC_0059.JPG', 'DSC_0065-Edit.JPG', 'DSC_0066-Edit.JPG'];
     const thumbBar = document.querySelector('.thumb-bar');
     const displayedImg = document.querySelector('.displayed-img');
     const btn = document.querySelector('button');

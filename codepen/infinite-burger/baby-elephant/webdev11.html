@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interactive 3D Glass of Water</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+      perspective: 1000px;
+    }
+
+    .scene {
+      width: 200px;
+      height: 300px;
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out;
+      cursor: grab;
+    }
+
+    .glass {
+      width: 100%;
+      height: 100%;
+      border-radius: 20px 20px 25px 25px; /* More tapered wine glass shape */
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.01), rgba(255, 255, 255, 0.01));
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(4px);
+    }
+
+    .glass::before {
+      content: "";
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140px; /* Adjusted width for a more tapered look */
+      height: 30px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      z-index: 1;
+      filter: blur(3px);
+    }
+
+    .glass::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: radial-gradient(ellipse at 50% 20%, rgba(255, 255, 255, 0.1), transparent 60%);
+      pointer-events: none;
+      z-index: 3;
+    }
+    
+    .rim {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140px; /* Match the width of the glass's mouth */
+      height: 30px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.1));
+      box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.1);
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .shine {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 12px;
+      height: 85%;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      filter: blur(2px);
+      transform: rotate(-10deg) translateZ(1px);
+      z-index: 3;
+    }
+
+    .water {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 60%;
+      background: radial-gradient(ellipse at center, rgba(255, 0, 0, 0.8), rgba(255, 99, 71, 0.5)); /* Changed to red */
+      border-top: 2px solid rgba(255, 255, 255, 0.6);
+      box-shadow: inset 0 10px 10px rgba(255, 255, 255, 0.2);
+      border-radius: 50% 50% 0 0 / 10% 10% 0 0;
+      z-index: 2;
+    }
+
+    .glass-inner-reflection {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border-radius: inherit;
+      background: radial-gradient(circle at 50% 10%, rgba(255, 255, 255, 0.15), transparent 70%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .shadow {
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 220px;
+      height: 20px;
+      background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.2), transparent);
+      border-radius: 50%;
+      z-index: -1;
+    }
+  </style>
+</head>
+<body>
+  <div class="scene" id="scene">
+    <div class="glass">
+      <div class="rim"></div>
+      <div class="shine"></div>
+      <div class="glass-inner-reflection"></div>
+      <div class="water"></div>
+      <div class="shadow"></div>
+    </div>
+  </div>
+
+  <script>
+    const scene = document.getElementById('scene');
+    let isDragging = false;
+    let startX, startY;
+    let currentX = 0, currentY = 0;
+
+    scene.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      startX = e.clientX - currentX;
+      startY = e.clientY - currentY;
+      scene.style.cursor = 'grabbing';
+    });
+
+    document.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      currentX = e.clientX - startX;
+      currentY = e.clientY - startY;
+
+      // Clamp up/down rotation
+      currentY = Math.max(Math.min(currentY, 60), -60);
+
+      scene.style.transform = `rotateY(${currentX / 5}deg) rotateX(${currentY / 5}deg)`;
+    });
+
+    document.addEventListener('mouseup', () => {
+      isDragging = false;
+      scene.style.cursor = 'grab';
+    });
+
+    // Touch support
+    scene.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      const touch = e.touches[0];
+      startX = touch.clientX - currentX;
+      startY = touch.clientY - currentY;
+    });
+
+    scene.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const touch = e.touches[0];
+      currentX = touch.clientX - startX;
+      currentY = touch.clientY - startY;
+      currentY = Math.max(Math.min(currentY, 60), -60);
+      scene.style.transform = `rotateY(${currentX / 5}deg) rotateX(${currentY / 5}deg)`;
+    });
+
+    scene.addEventListener('touchend', () => {
+      isDragging = false;
+    });
+  </script>
+</body>
+</html>

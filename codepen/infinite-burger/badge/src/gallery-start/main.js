@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Looping through images
     imageFilenames.forEach(filename => {
         const newImage = document.createElement('img');
-        newImage.src = `./images/${filename}`;
+        newImage.src = `\.\/images/${filename}`;
         newImage.alt = `Image ${filename}`;
         thumbBar.appendChild(newImage);
 

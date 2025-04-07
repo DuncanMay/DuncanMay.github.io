@@ -9,7 +9,7 @@
     
     const images = ['dsc_0066-edit.jpg', 'dsc_0032.jpg', 'dsc_0046.jpg', 'dsc_0059.jpg', 'dsc_0065-edit.jpg'];
     const alts = {
-      'dsc_0066-edit.jpg' : 'Closeup of a human eye',
+      'dsc_0066-edit.jpg' : 'pipe clearner',
       'dsc_0032.jpg' : 'Rock that looks like a wave',
       'dsc_0046.jpg' : 'Purple and white pansies',
       'dsc_0059.jpg' : 'Section of wall from a pharoah\'s tomb',

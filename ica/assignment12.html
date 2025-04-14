@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>D&D 5e Monster Viewer</title>
+  <link rel="stylesheet" href="assignment12.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Uncial+Antiqua&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app parchment">
+    <header>🧙‍♂️ D&D 5e Monster Viewer</header>
+
+    <div id="loading-bar-container">
+      <div id="loading-bar"></div>
+    </div>
+
+    <section class="monster-section">
+      <div id="monster-name">Click the button to summon a monster...</div>
+      <div id="monster-info"></div>
+    </section>
+
+    <section class="controls">
+      <button id="generate-monster">Summon Monster</button>
+    </section>
+
+    <footer>
+      <p>This project started as a quote machine, but I transformed it into a Dungeons & Dragons monster viewer using the D&D 5e API. I added fantasy-themed styling and a loading bar animation to enhance the feel of summoning a creature from the depths of a dungeon.</p>
+    </footer>
+  </div>
+
+  <script>
+    const monsterName = document.getElementById('monster-name');
+    const monsterInfo = document.getElementById('monster-info');
+    const button = document.getElementById('generate-monster');
+    const loadingBarContainer = document.getElementById('loading-bar-container');
+    const loadingBar = document.getElementById('loading-bar');
+
+    button.addEventListener('click', async () => {
+      // Reset UI
+      monsterName.textContent = '';
+      monsterInfo.textContent = '';
+      loadingBarContainer.style.display = 'block';
+      loadingBar.style.width = '0%';
+
+      // Animate loading bar
+      let progress = 0;
+      const animate = setInterval(() => {
+        progress += 1;
+        loadingBar.style.width = `${progress}%`;
+        if (progress >= 100) clearInterval(animate);
+      }, 10);
+
+      try {
+        // Step 1: Get list of monsters
+        const listResponse = await fetch('https://www.dnd5eapi.co/api/monsters');
+        const listData = await listResponse.json();
+        const monsters = listData.results;
+        const randomMonster = monsters[Math.floor(Math.random() * monsters.length)];
+
+        // Step 2: Get monster details
+        const detailResponse = await fetch(`https://www.dnd5eapi.co${randomMonster.url}`);
+        const monsterData = await detailResponse.json();
+
+        // Display results
+        monsterName.textContent = monsterData.name;
+        monsterInfo.innerHTML = `
+          <p><strong>Size:</strong> ${monsterData.size}</p>
+          <p><strong>Type:</strong> ${monsterData.type}</p>
+          <p><strong>Alignment:</strong> ${monsterData.alignment}</p>
+          <p><strong>Hit Points:</strong> ${monsterData.hit_points}</p>
+          <p><strong>Challenge Rating:</strong> ${monsterData.challenge_rating}</p>
+        `;
+      } catch (err) {
+        monsterName.textContent = '🛑 Failed to summon monster!';
+        monsterInfo.textContent = '';
+        console.error(err);
+      } finally {
+        setTimeout(() => {
+          loadingBarContainer.style.display = 'none';
+        }, 400);
+      }
+    });
+  </script>
+</body>
+</html>

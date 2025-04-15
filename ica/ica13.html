@@ -77,20 +77,35 @@
         this.x += this.velX;
         this.y += this.velY;
       }
-      collisionDetect(){
-        for(const ball of balls){
-          if(this !==ball){
-            const dx = this.x -ball.x;
-            const dy = this.y - ball.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+      collisionDetect() {
+  for (const ball of balls) {
+    if (this !== ball) {
+      const dx = this.x - ball.x;
+      const dy = this.y - ball.y;
+      const distance = Math.sqrt(dx * dx + dy * dy);
 
-if (distance < this.size + ball.size) {
-  ball.color = this.color = randomRGB();
+      if (distance < this.size + ball.size) {
+       
+        const tempVelX = this.velX;
+        const tempVelY = this.velY;
+        this.velX = ball.velX;
+        this.velY = ball.velY;
+        ball.velX = tempVelX;
+        ball.velY = tempVelY;
+
+      
+        const overlap = this.size + ball.size - distance;
+        const smallerBall = this.size < ball.size ? this : ball;
+        smallerBall.x += (dx / distance) * (overlap / 2);
+        smallerBall.y += (dy / distance) * (overlap / 2);
+
+        
+        this.color = ball.color = randomRGB();
+      }
+    }
+  }
 }
 
-          }
-        }
-      }
     }
 
     const balls = [];

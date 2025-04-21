@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mouse Light Effect</title>
+  <link rel="stylesheet" href="hw13.css" />
+  <style>
+    /* SVG filter directly included in case it's needed */
+    svg {
+      position: absolute;
+      width: 0;
+      height: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="text" contenteditable="true" spellcheck="false">
+      Edit this text
+    </div>
+    <div id="light"></div>
+  </div>
+
+  <!-- Filter still defined, even if we’re not animating it -->
+  <svg xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="sticker">
+        <feTurbulence type="fractalNoise" baseFrequency="0.02" numOctaves="1" seed="14" stitchTiles="noStitch" result="turb" />
+        <feColorMatrix in="turb" type="saturate" values="30" result="saturate" />
+        <feMorphology in="SourceGraphic" operator="dilate" radius="10" result="dilate" />
+        <feFlood flood-color="#000000" flood-opacity="1" result="flood" />
+        <feGaussianBlur in="SourceGraphic" stdDeviation="3" result="blur" />
+        <feOffset in="saturate" dx="0" dy="0" result="offset" />
+        <feComposite in="flood" in2="dilate" operator="in" result="comp1" />
+        <feDiffuseLighting in="blur" surfaceScale="10" diffuseConstant="1" lighting-color="#ffffff" result="light">
+          <fePointLight x="100" y="50" z="20" />
+        </feDiffuseLighting>
+        <feComposite in="offset" in2="SourceGraphic" operator="atop" result="comp2" />
+        <feComposite in="comp2" in2="comp1" operator="atop" result="comp3" />
+        <feTurbulence type="fractalNoise" baseFrequency="3" numOctaves="1" seed="0" result="turb2" />
+        <feComposite in="light" in2="comp3" operator="in" result="comp4" />
+        <feBlend in="comp4" in2="comp3" mode="color-dodge" result="blend" />
+        <feColorMatrix in="turb2" type="matrix" values="1 0 0 0 0  1 0 0 0 0  1 0 0 0 0  0.03 0 0 0 0" result="colorMatrix" />
+        <feComposite in="colorMatrix" in2="blend" operator="atop" />
+      </filter>
+    </defs>
+  </svg>
+
+  <script>
+    const text = document.querySelector('.text');
+    const light = document.querySelector('#light');
+
+    document.addEventListener('mousemove', (e) => {
+      // Move light effect
+      light.style.left = `${e.clientX - 100}px`;
+      light.style.top = `${e.clientY - 100}px`;
+    });
+
+    // Prevent new lines on enter
+    text.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>

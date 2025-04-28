@@ -1,0 +1,306 @@
+* {
+    box-sizing: border-box;
+    user-select: none;
+  }
+  
+  body {
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+    background-color: #48c1bb;
+    overscroll-behavior: contain;
+    --brown: #57280f;
+  }
+  
+  .wrapper {
+    position: absolute;
+    height: 100dvh;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .wrapper.show-message::after {
+    position: absolute;
+    content: 'drag the donut and feed the bear';
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-style: italic;
+    color: #fff;
+    font-size: 1.2em;
+  }
+  
+  .object {
+    position: absolute;
+    width: var(--w);
+    height: var(--h);
+    image-rendering: pixelated;
+  }
+  
+  .bear {
+    position: relative;
+    --bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAAXNSR0IArs4c6QAAAEFJREFUKFNjZMACvp+a/h8kzGmWyYgujSIAU4iuCFkjXAMuxTDNME1gDYQUI2tiJFYxTNPI1EBysMKCi1DwwiIOAN7kLBdgm7MJAAAAAElFTkSuQmCC);
+    border-image: var(--bg) 5 fill / 12px / 0 stretch;
+  }
+  
+  .round {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAAXNSR0IArs4c6QAAAEBJREFUKFNjZEAD309N/48sxGmWyYjMh3PQFaIbBNMI1kBIMUwzSBMjsYphmkamBpKDFRZchIIXJeKQY5VQ0gAAHM4sF8jjrCwAAAAASUVORK5CYII=);
+    background-size: cover;
+    image-rendering: pixelated;
+  }
+  
+  .cheek {
+    animation: cheek-eat forwards 3.5s;
+    animation-play-state: paused;
+  }
+  
+  .mouth {
+    --bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAJCAYAAAALpr0TAAAAAXNSR0IArs4c6QAAADxJREFUKFNjZICCh6UT/st15cO4YPpR2UQG+e4CRhAbTIAUwVTAFIMUwQBIMSOyIhTj0DhDQiHRviY2HAHIiSqDjfLRxAAAAABJRU5ErkJggg==);
+    border-image: var(--bg) 4 fill / 10px 9px / 0 stretch;
+  }
+  
+  .mouth-wrapper {
+    width: 16px;
+    height: 4px;
+    margin-top: -5px;
+    z-index: 1;
+  }
+  
+  .eating .mouth-wrapper {
+    background-image: none;
+    width: 0;
+    height: 0;
+  }
+  
+  .eating .mouth {
+    animation: eat infinite 0.4s;
+  }
+  
+  .eating .cheek {
+    animation-play-state: running;
+  }
+  
+  @keyframes eat {
+    0%, 100% {
+      width: var(--w);
+      height: var(--h);
+    }
+    50% {
+      width: var(--max-w);
+      height: var(--max-h);
+    }
+  }
+  
+  @keyframes cheek-eat {
+    0% {
+      width: var(--w);
+      height: var(--h);
+    }
+    100% {
+      width: var(--max-w);
+      height: var(--max-h);
+    }
+  }
+  
+  .inner-face {
+    width: 100%;
+    max-width: 140px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: 0 auto;
+  }
+  
+  .face {
+    position: absolute;
+    --top: 24px;
+    --move-top: 22px;
+    top: var(--top);
+    width: 100%;
+  }
+  
+  .eating .ears,
+  .eating .face {
+    animation: face-eat infinite 0.4s;
+  }
+  
+  @keyframes face-eat {
+    0%, 100% {
+      top: var(--move-top);
+    }
+    50% {
+      top: var(--top);
+    }
+  }
+  
+  .ears {
+    position: absolute;
+    width: 120%;
+    left: -10%;
+    --top: -16px;
+    --move-top: -14px;
+    top: var(--top);
+  }
+  
+  .inner-ears {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    max-width: 200px;
+    margin: 0 auto;
+  }
+  
+  .ear {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .cheeks {
+    position: absolute;
+    bottom: -10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 0;
+  }
+  
+  .eye {
+    background-color: var(--brown);
+    width: 4px;
+    height: 8px;
+    z-index: 1;
+  }
+  
+  .nose {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAICAYAAADwdn+XAAAAAXNSR0IArs4c6QAAAEZJREFUKFNjZICC/////4exQbSyRxYyl+HujmkofEZGRkaQAJhA10yMAWDNIIBNM4pVBDjDwQBcgUhMOIADEVc0EjIAphcAZB4l+bnOcdYAAAAASUVORK5CYII=);
+    background-size: cover;
+    width: 32px;
+    height: 16px;
+    margin-bottom: -16px;
+  }
+  
+  .flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .hand {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAGCAYAAAAL+1RLAAAAAXNSR0IArs4c6QAAAClJREFUGFdjDNfg/88ABStvfGQEMcEEDIAUgCRQBEGSIAnCgnDt2CwCAGzKEyHNFrF4AAAAAElFTkSuQmCC);
+    width: 10px;
+    height: 12px;
+    image-rendering: pixelated;
+    background-size: cover;
+  }
+  
+  .flip {
+    transform: scale(-1, 1);
+  }
+  
+  .limbs {
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    bottom: -10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .eating .limbs {
+    animation: limbs-eat infinite 0.4s;
+  }
+  
+  @keyframes limbs-eat {
+    0%, 100% {
+      height: 40px;
+    }
+    50% {
+      height: 42px;
+    }
+  }
+  
+  .limbs > div {
+    display: flex;
+    justify-content: space-around;
+  }
+  
+  .foot {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .food {
+    cursor: grab;
+  }
+  
+  .food:active {
+    cursor: grabbing;
+  }
+  
+  .donut {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAASCAYAAABB7B6eAAAAAXNSR0IArs4c6QAAAVJJREFUOE9jZCAAwjX4/+NTsvLGR0Z88lglkQ0tjQ1nMLazxWlGRGoOXA6bZSgWwAwGGUosQLYcZhmyRXALQIaTYjA2B8AsA1kEswRsATUMR7YQZBHMErAFZ1rT8EbkrdtXsIaYmqoOzpAEWcJoG8vIiM/1uAxGNxWbRTBf4LSge/FKBn8LbbhZOk5WKOZe2XcMzt944ioDtvgDmYHTApgLQKZUV6ViDYrWttlg8RWzpzCcPXQYQw1eC0CqkVMFNhtABoMANsNB4nALQEFBKMKwWYDLYJBaUPyBgg4cRMhhjc8iYjIfcsIAWwDS9PfFrv8rKxrg+sm1BNnw8I4GBmYJN0Z4Rlt2YDUDsiUw2whZhi0pgwyPcggF52aUogJkCQhgs4iY4AEZDAIww0FsrIUdzCJiLIMZCjMYrAepCCdYXCNbhs0XINfCAMHiGpsBlFY4AGg4nGHeibMpAAAAAElFTkSuQmCC);
+    background-size: cover;
+    image-rendering: pixelated;
+  }
+  
+  /* Extra UI - phone box, selector buttons */
+  
+  #donut-selector {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  
+  #donut-selector button {
+    margin: 0 5px;
+    padding: 8px 12px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #57280f;
+    color: white;
+    border-radius: 5px;
+  }
+  
+  #donut-selector button:hover {
+    background-color: #774023;
+  }
+  
+  #phone-label {
+    text-align: center;
+    font-size: 24px;
+    color: white;
+    margin-top: 20px;
+  }
+  
+  #phone-number {
+    text-align: center;
+    font-size: 32px;
+    color: white;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .sign {
+    position: fixed;
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--brown);
+    bottom: 10px;
+    right: 10px;
+    font-size: 10px;
+    text-transform: none;
+  }
+  
+  a {
+    color: var(--brown);
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  

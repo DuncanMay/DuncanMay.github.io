@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Interactive Hungry Bear</title>
+  <link rel="stylesheet" href="bear.css">
+</head>
+<body>
+
+  <div id="donut-selector">
+    <button onclick="spawnDonut('big')">Big Donut (+100)</button>
+    <button onclick="spawnDonut('medium')">Medium Donut (+50)</button>
+    <button onclick="spawnDonut('small')">Small Donut (+1)</button>
+    <button onclick="spawnDonut('ten')">10-Point Donut (+10)</button>
+    <button onclick="spawnDonut('mystery')">Mystery Donut (0-999)</button>
+  </div>
+
+  <div id="phone-label">Enter your phone number</div>
+  <div id="phone-number">(000) 000-0000</div>
+
+  <div class="wrapper show-message"></div>
+
+  <div class="sign">
+    by masahito / <a href="http://www.ma5a.com/" target="_blank">ma5a.com</a>
+  </div>
+
+  <script src="bear.js"></script>
+</body>
+</html>

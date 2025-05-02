@@ -62,7 +62,7 @@ body {
   border: 3px solid black;
   z-index: 2;
   position: relative;
-  margin-top: -60px; /* Pulls the rim slightly into the backboard */
+  margin-top: -60px; 
 }
 
 .hoop .net {
@@ -105,7 +105,7 @@ body {
   height: 150px;
 }
 
-/* Extra UI - phone box, selector buttons */
+
 
 #donut-selector {
   display: flex;

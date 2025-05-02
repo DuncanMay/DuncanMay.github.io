@@ -1,306 +1,217 @@
+
 * {
-    box-sizing: border-box;
-    user-select: none;
-  }
-  
-  body {
-    padding: 0;
-    margin: 0;
-    font-family: sans-serif;
-    background-color: #48c1bb;
-    overscroll-behavior: contain;
-    --brown: #57280f;
-  }
-  
-  .wrapper {
-    position: absolute;
-    height: 100dvh;
-    width: 100%;
-    overflow: hidden;
-  }
-  
-  .wrapper.show-message::after {
-    position: absolute;
-    content: 'drag the donut and feed the bear';
-    top: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-style: italic;
-    color: #fff;
-    font-size: 1.2em;
-  }
-  
-  .object {
-    position: absolute;
-    width: var(--w);
-    height: var(--h);
-    image-rendering: pixelated;
-  }
-  
-  .bear {
-    position: relative;
-    --bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAAXNSR0IArs4c6QAAAEFJREFUKFNjZMACvp+a/h8kzGmWyYgujSIAU4iuCFkjXAMuxTDNME1gDYQUI2tiJFYxTNPI1EBysMKCi1DwwiIOAN7kLBdgm7MJAAAAAElFTkSuQmCC);
-    border-image: var(--bg) 5 fill / 12px / 0 stretch;
-  }
-  
-  .round {
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAYAAABWdVznAAAAAXNSR0IArs4c6QAAAEBJREFUKFNjZEAD309N/48sxGmWyYjMh3PQFaIbBNMI1kBIMUwzSBMjsYphmkamBpKDFRZchIIXJeKQY5VQ0gAAHM4sF8jjrCwAAAAASUVORK5CYII=);
-    background-size: cover;
-    image-rendering: pixelated;
-  }
-  
-  .cheek {
-    animation: cheek-eat forwards 3.5s;
-    animation-play-state: paused;
-  }
-  
-  .mouth {
-    --bg: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAJCAYAAAALpr0TAAAAAXNSR0IArs4c6QAAADxJREFUKFNjZICCh6UT/st15cO4YPpR2UQG+e4CRhAbTIAUwVTAFIMUwQBIMSOyIhTj0DhDQiHRviY2HAHIiSqDjfLRxAAAAABJRU5ErkJggg==);
-    border-image: var(--bg) 4 fill / 10px 9px / 0 stretch;
-  }
-  
-  .mouth-wrapper {
-    width: 16px;
-    height: 4px;
-    margin-top: -5px;
-    z-index: 1;
-  }
-  
-  .eating .mouth-wrapper {
-    background-image: none;
-    width: 0;
-    height: 0;
-  }
-  
-  .eating .mouth {
-    animation: eat infinite 0.4s;
-  }
-  
-  .eating .cheek {
-    animation-play-state: running;
-  }
-  
-  @keyframes eat {
-    0%, 100% {
-      width: var(--w);
-      height: var(--h);
-    }
-    50% {
-      width: var(--max-w);
-      height: var(--max-h);
-    }
-  }
-  
-  @keyframes cheek-eat {
-    0% {
-      width: var(--w);
-      height: var(--h);
-    }
-    100% {
-      width: var(--max-w);
-      height: var(--max-h);
-    }
-  }
-  
-  .inner-face {
-    width: 100%;
-    max-width: 140px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    margin: 0 auto;
-  }
-  
-  .face {
-    position: absolute;
-    --top: 24px;
-    --move-top: 22px;
-    top: var(--top);
-    width: 100%;
-  }
-  
-  .eating .ears,
-  .eating .face {
-    animation: face-eat infinite 0.4s;
-  }
-  
-  @keyframes face-eat {
-    0%, 100% {
-      top: var(--move-top);
-    }
-    50% {
-      top: var(--top);
-    }
-  }
-  
-  .ears {
-    position: absolute;
-    width: 120%;
-    left: -10%;
-    --top: -16px;
-    --move-top: -14px;
-    top: var(--top);
-  }
-  
-  .inner-ears {
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    max-width: 200px;
-    margin: 0 auto;
-  }
-  
-  .ear {
-    width: 18px;
-    height: 18px;
-  }
-  
-  .cheeks {
-    position: absolute;
-    bottom: -10px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    height: 0;
-  }
-  
-  .eye {
-    background-color: var(--brown);
-    width: 4px;
-    height: 8px;
-    z-index: 1;
-  }
-  
-  .nose {
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAICAYAAADwdn+XAAAAAXNSR0IArs4c6QAAAEZJREFUKFNjZICC/////4exQbSyRxYyl+HujmkofEZGRkaQAJhA10yMAWDNIIBNM4pVBDjDwQBcgUhMOIADEVc0EjIAphcAZB4l+bnOcdYAAAAASUVORK5CYII=);
-    background-size: cover;
-    width: 32px;
-    height: 16px;
-    margin-bottom: -16px;
-  }
-  
-  .flex-center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .hand {
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAGCAYAAAAL+1RLAAAAAXNSR0IArs4c6QAAAClJREFUGFdjDNfg/88ABStvfGQEMcEEDIAUgCRQBEGSIAnCgnDt2CwCAGzKEyHNFrF4AAAAAElFTkSuQmCC);
-    width: 10px;
-    height: 12px;
-    image-rendering: pixelated;
-    background-size: cover;
-  }
-  
-  .flip {
-    transform: scale(-1, 1);
-  }
-  
-  .limbs {
-    position: absolute;
-    width: 100%;
-    height: 40px;
-    bottom: -10px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .eating .limbs {
-    animation: limbs-eat infinite 0.4s;
-  }
-  
-  @keyframes limbs-eat {
-    0%, 100% {
-      height: 40px;
-    }
-    50% {
-      height: 42px;
-    }
-  }
-  
-  .limbs > div {
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  .foot {
-    width: 18px;
-    height: 18px;
-  }
-  
-  .food {
-    cursor: grab;
-  }
-  
-  .food:active {
-    cursor: grabbing;
-  }
-  
-  .donut {
-    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAASCAYAAABB7B6eAAAAAXNSR0IArs4c6QAAAVJJREFUOE9jZCAAwjX4/+NTsvLGR0Z88lglkQ0tjQ1nMLazxWlGRGoOXA6bZSgWwAwGGUosQLYcZhmyRXALQIaTYjA2B8AsA1kEswRsATUMR7YQZBHMErAFZ1rT8EbkrdtXsIaYmqoOzpAEWcJoG8vIiM/1uAxGNxWbRTBf4LSge/FKBn8LbbhZOk5WKOZe2XcMzt944ioDtvgDmYHTApgLQKZUV6ViDYrWttlg8RWzpzCcPXQYQw1eC0CqkVMFNhtABoMANsNB4nALQEFBKMKwWYDLYJBaUPyBgg4cRMhhjc8iYjIfcsIAWwDS9PfFrv8rKxrg+sm1BNnw8I4GBmYJN0Z4Rlt2YDUDsiUw2whZhi0pgwyPcggF52aUogJkCQhgs4iY4AEZDAIww0FsrIUdzCJiLIMZCjMYrAepCCdYXCNbhs0XINfCAMHiGpsBlFY4AGg4nGHeibMpAAAAAElFTkSuQmCC);
-    background-size: cover;
-    image-rendering: pixelated;
-  }
-  
-  /* Extra UI - phone box, selector buttons */
-  
-  #donut-selector {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  #donut-selector button {
-    margin: 0 5px;
-    padding: 8px 12px;
-    font-size: 16px;
-    cursor: pointer;
-    border: none;
-    background-color: #57280f;
-    color: white;
-    border-radius: 5px;
-  }
-  
-  #donut-selector button:hover {
-    background-color: #774023;
-  }
-  
-  #phone-label {
-    text-align: center;
-    font-size: 24px;
-    color: white;
-    margin-top: 20px;
-  }
-  
-  #phone-number {
-    text-align: center;
-    font-size: 32px;
-    color: white;
-    font-weight: bold;
-    margin-top: 10px;
-  }
-  
-  .sign {
-    position: fixed;
-    font-family: Arial, Helvetica, sans-serif;
-    color: var(--brown);
-    bottom: 10px;
-    right: 10px;
-    font-size: 10px;
-    text-transform: none;
-  }
-  
-  a {
-    color: var(--brown);
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
+  box-sizing: border-box;
+  user-select: none;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+  background-color: #48c1bb;
+  overscroll-behavior: contain;
+  --brown: #57280f;
+}
+
+.wrapper {
+  position: absolute;
+  height: 100dvh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.wrapper.show-message::after {
+  position: absolute;
+  content: 'click shot then drag the basketball into the hoop to score!';
+  top: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-style: italic;
+  color: #fff;
+  font-size: 1.2em;
+}
+
+.object {
+  position: absolute;
+  width: var(--w);
+  height: var(--h);
+  image-rendering: pixelated;
+}
+
+.hoop {
+  position: absolute;
+  width: 80px;
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: transparent;
+}
+
+.hoop .backboard {
+  width: 100px;
+  height: 60px;
+  background-color: #eee;
+  border: 5px solid #000;
+}
+
+.hoop .rim {
+  width: 65px;
+  height: 10px;
+  background-color: #ff3b3b;
+  border: 3px solid black;
+  z-index: 2;
+  position: relative;
+  margin-top: -60px; /* Pulls the rim slightly into the backboard */
+}
+
+.hoop .net {
+  width: 60px;
+  height: 50px;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 8px,
+    #ccc 8px,
+    #ccc 10px
+  ),
+  repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent 8px,
+    #ccc 8px,
+    #ccc 10px
+  );
+  background-size: 10px 10px;
+  z-index: 1;
+  margin-top: -2px;
+}
+
+
+.food {
+  cursor: grab;
+}
+
+.food:active {
+  cursor: grabbing;
+}
+
+.basketball {
+  background-image: url('pixel-basketball.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+  width: 64px;
+  height: 150px;
+}
+
+/* Extra UI - phone box, selector buttons */
+
+#donut-selector {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+#donut-selector button {
+  margin: 0 5px;
+  padding: 8px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+  background-color: #57280f;
+  color: white;
+  border-radius: 5px;
+}
+
+#donut-selector button:hover {
+  background-color: #774023;
+}
+
+#phone-label {
+  text-align: center;
+  font-size: 24px;
+  color: white;
+  margin-top: 20px;
+}
+
+#phone-number {
+  text-align: center;
+  font-size: 32px;
+  color: white;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.sign {
+  position: fixed;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--brown);
+  bottom: 10px;
+  right: 10px;
+  font-size: 10px;
+  text-transform: none;
+}
+
+a {
+  color: var(--brown);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+#submit-btn {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #57280f;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#submit-btn:hover {
+  background-color: #774023;
+}
+
+#result-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+#result-screen img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.7;
+}
+
+#final-number {
+  position: relative;
+  color: white;
+  font-size: 48px;
+  font-weight: bold;
+  text-shadow: 2px 2px 5px black;
+  z-index: 1000;
+}
+
+.hidden {
+  display: none !important;
+}
+

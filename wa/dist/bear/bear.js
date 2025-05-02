@@ -1,7 +1,9 @@
 const isNum = x => typeof x === 'number';
 const px = n => `${n}px`;
+
 const getPagePos = (e, param) =>
   e.targetTouches ? e.touches[0][`page${param}`] : e[`page${param}`];
+
 const randomN = n => Math.round(-n - 0.5 + Math.random() * (2 * n + 1));
 
 const wrapper = document.querySelector('.wrapper');
@@ -110,21 +112,6 @@ class WorldObject {
   }
 }
 
-class Crumbs extends WorldObject {
-  constructor(props) {
-    super({
-      el: Object.assign(document.createElement('div'), { className: `${props.type}-crumbs object` }),
-      x: 0, y: 0,
-      container: wrapper,
-      ...props,
-    });
-    setTimeout(() => {
-      this.el.remove();
-      this.food.crumbs = null;
-    }, 1000);
-  }
-}
-
 class Food extends WorldObject {
   constructor(props) {
     super({
@@ -175,26 +162,19 @@ class Food extends WorldObject {
   eat() {
     if (!this.eatInterval) {
       this.eatInterval = setInterval(() => {
-        if (this.eatCount < 5) {
-          this.crumbs = new Crumbs({
-            type: this.type,
-            size: { w: 0, h: 0 },
-            maxSize: { w: 40, h: 40 },
-            x: this.distPos.x + randomN(10),
-            y: this.pos.y + randomN(10),
-            food: this,
-          });
-          this.eatCount++;
-          this.el.className = `food ${this.type} ${this.type}-eaten-${this.eatCount} object`;
-        } else {
+        this.eatCount++;
+        this.el.className = `food ${this.type} ${this.type}-eaten-${this.eatCount} object`;
+        if (this.eatCount >= 5) {
           this.el.remove();
           clearInterval(this.eatInterval);
           this.eatInterval = null;
-          if (this.bear) {
-            this.bear.el.classList.remove('eating');
-            this.bear.food = null;
-            this.bear.score += this.points;
-            this.bear.scoreBox.innerText = this.bear.score.toString().padStart(this.bear === bears[2] ? 4 : 3, '0');
+          if (this.hoop) {
+            this.hoop.food = null;
+            const hoopIndex = hoops.indexOf(this.hoop);
+            const maxScores = [999, 999, 9999];
+            
+            this.hoop.score = Math.min(this.hoop.score + this.points, maxScores[hoopIndex]);
+            this.hoop.scoreBox.innerText = this.hoop.score.toString().padStart(hoopIndex === 2 ? 4 : 3, '0');
             updatePhoneNumber();
           }
         }
@@ -205,72 +185,34 @@ class Food extends WorldObject {
     const { width, height } = wrapper.getBoundingClientRect();
     this.pos.setXy({
       x: width / 2 - 36,
-      y: height - (height > 400 ? 200 : 100),
+      y: height - 400,
     });
     this.setStyles();
   }
 }
 
-class Bear extends WorldObject {
+class Hoop extends WorldObject {
   constructor(props) {
     super({
       ...props,
       canMove: true,
-      type: 'bear',
+      type: 'hoop',
       el: Object.assign(document.createElement('div'), {
-        className: 'bear object',
+        className: 'hoop object',
         innerHTML: `
-          <div class="ears">
-            <div class="hair"></div>
-            <div class="inner-ears">
-              <div class="ear round"></div>
-              <div class="ear round"></div>
-            </div>
-          </div>
-          <div class="face">
-            <div class="inner-face">
-              <div class="eye"></div>
-              <div class="nose"></div>
-              <div class="eye"></div>
-            </div>
-            <div class="cheeks">
-              <div class="cheek-wrapper flex-center"></div>
-              <div class="mouth-wrapper flex-center"></div>
-              <div class="cheek-wrapper flex-center"></div>
-            </div>
-          </div>
-          <div class="limbs">
-            <div class="hands">
-              <div class="hand"></div>
-              <div class="hand flip"></div>
-            </div>
-            <div class="feet">
-              <div class="foot round"></div>
-              <div class="foot round"></div>
-            </div>
-          </div>
+          <div class="backboard"></div>
+          <div class="rim"></div>
+          <div class="net"></div>
         `,
       }),
     });
 
-    const cheekWrappers = this.el.querySelectorAll('.cheek-wrapper');
-    const mouthWrapper = this.el.querySelector('.mouth-wrapper');
-
-    this.cheeks = [0, 1].map(i => new WorldObject({
-      el: Object.assign(document.createElement('div'), { className: 'cheek round object' }),
-      container: cheekWrappers[i],
+    this.rim = new WorldObject({
+      el: this.el.querySelector('.rim'),
+      container: this.el,
       body: this,
-      size: { w: 0, h: 0 },
-      maxSize: { w: 40, h: 40 },
-      noPos: true,
-    }));
-
-    this.mouth = new WorldObject({
-      el: Object.assign(document.createElement('div'), { className: 'mouth object flex-center' }),
-      container: mouthWrapper,
-      body: this,
-      size: { w: 20, h: 0 },
-      maxSize: { w: 40, h: 30 },
+      size: { w: 60, h: 10 },
+      maxSize: { w: 60, h: 10 },
       noPos: true,
     });
 
@@ -278,17 +220,14 @@ class Bear extends WorldObject {
       for (const foodEl of wrapper.querySelectorAll('.food')) {
         const foodObj = foodEl._foodObject;
         if (!foodObj) continue;
-        if (this.mouth.distanceBetween(foodObj) < 50) {
-          if (!foodObj.bear) {
-            foodObj.bear = this;
+        if (this.rim.distanceBetween(foodObj) < 50) {
+          if (!foodObj.hoop) {
+            foodObj.hoop = this;
           }
-          this.el.classList.add('eating');
-          wrapper.classList.remove('show-message');
           foodObj.eat();
           return;
         }
       }
-      this.el.classList.remove('eating');
     });
 
     window.addEventListener('resize', () => {
@@ -297,33 +236,33 @@ class Bear extends WorldObject {
   }
 }
 
-const bears = [];
+const hoops = [];
 const { width } = wrapper.getBoundingClientRect();
 const spacing = width / 4;
 
 for (let i = 0; i < 3; i++) {
-  const bear = new Bear({
+  const hoop = new Hoop({
     container: wrapper,
     size: { w: 70, h: 90 },
     maxSize: { w: 90, h: 100 },
     offset: { x: null, y: null },
   });
-  bear.pos.x = spacing * i + spacing / 1 - 35;
-  bear.pos.y = window.innerHeight - 600;
-  bear.setStyles();
-  bears.push(bear);
+  hoop.pos.x = spacing * i + spacing / 1 - 35;
+  hoop.pos.y = window.innerHeight - 600;
+  hoop.setStyles();
+  hoops.push(hoop);
 
   const box = document.createElement('div');
   box.className = 'score-box';
   box.innerText = i === 2 ? '0000' : '000';
   wrapper.appendChild(box);
 
-  bear.scoreBox = box;
-  bear.score = 0;
+  hoop.scoreBox = box;
+  hoop.score = 0;
 
   box.style.position = 'absolute';
-  box.style.left = `${bear.pos.x}px`;
-  box.style.top = `${bear.pos.y - 60}px`;
+  box.style.left = `${hoop.pos.x}px`;
+  box.style.top = `${hoop.pos.y - 60}px`;
   box.style.color = 'white';
   box.style.fontSize = '24px';
   box.style.fontWeight = 'bold';
@@ -332,7 +271,7 @@ for (let i = 0; i < 3; i++) {
   box.style.marginLeft = '-50px';
 }
 
-function spawnDonut(type) {
+function spawnBall(type) {
   let points = 1;
   if (type === 'big') points = 100;
   else if (type === 'medium') points = 50;
@@ -340,17 +279,26 @@ function spawnDonut(type) {
   else if (type === 'mystery') points = Math.floor(Math.random() * 1000);
 
   new Food({
-    type: 'donut',
-    size: { w: 72, h: 54 },
+    type: 'basketball',
+    size: { w: 64, h: 64 },
     canMove: true,
     points: points,
-    bear: null,
+    hoop: null,
   });
 }
 
 function updatePhoneNumber() {
-  const part1 = bears[0]?.score.toString().padStart(3, '0') || '000';
-  const part2 = bears[1]?.score.toString().padStart(3, '0') || '000';
-  const part3 = bears[2]?.score.toString().padStart(4, '0') || '0000';
+  const part1 = hoops[0]?.score.toString().padStart(3, '0') || '000';
+  const part2 = hoops[1]?.score.toString().padStart(3, '0') || '000';
+  const part3 = hoops[2]?.score.toString().padStart(4, '0') || '0000';
   document.getElementById('phone-number').innerText = `(${part1}) ${part2}-${part3}`;
 }
+const submitBtn = document.getElementById('submit-btn');
+const resultScreen = document.getElementById('result-screen');
+const finalNumber = document.getElementById('final-number');
+
+submitBtn.addEventListener('click', () => {
+  const phoneText = document.getElementById('phone-number').innerText;
+  finalNumber.textContent = phoneText;
+  resultScreen.classList.remove('hidden');
+});

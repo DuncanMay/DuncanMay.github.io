@@ -1,0 +1,80 @@
+body {
+    background-color: #e77f3e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .court {
+    position: relative;
+    width: 300px;
+    height: 400px;
+    image-rendering: pixelated;
+  }
+  
+  .backboard {
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    height: 120px;
+    background-color: #eee;
+    border: 8px solid #222;
+  }
+  
+  .rim {
+    position: absolute;
+    top: 130px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 10px;
+    background-color: #c03030;
+    border: 4px solid #222;
+    border-bottom: none;
+  }
+  
+  .net {
+    position: absolute;
+    top: 140px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 60px;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent,
+      transparent 8px,
+      #ccc 8px,
+      #ccc 10px
+    ),
+    repeating-linear-gradient(
+      to right,
+      transparent,
+      transparent 8px,
+      #ccc 8px,
+      #ccc 10px
+    );
+    background-size: 10px 10px;
+  }
+  .ball {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 64px;
+    height: 64px;
+    background-image: url('pixel-basketball.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    image-rendering: pixelated;
+    cursor: pointer;
+  }
+  
+  
+  
+  

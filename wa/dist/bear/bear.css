@@ -97,7 +97,7 @@ body {
 }
 
 .basketball {
-  background-image: url('pixel-basketball.png');
+  background-image: url('./Pixel-Basketball.png');
   background-size: contain;
   background-repeat: no-repeat;
   image-rendering: pixelated;
